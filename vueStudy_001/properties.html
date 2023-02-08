@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <!-- computed -->
+<head>
+    <meta charset="utf-8">
+    <title>Vue Directives4</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+  
+<div id="example">
+    <input type="text" v-model="num">
+    <br>
+    1부터 입력된 수 까지의 합 : <span>{{sum}}</span>
+</div>
+
+
+
+<script type="text/javascript">
+    
+    // Vue 인스턴스 생성
+    var vmSum = new Vue
+    ({
+        el : "#example"                 // 요소
+        , data : {num : 0}              // 데이터
+        , computed :                    // 계산형 속성
+         {
+            sum : function ()
+             {
+                var n = Number(this.num);
+                if (Number.isNaN(n) || n < 1) 
+                {
+                    return 0;
+                }
+                else
+                {
+                    return ((1+n) * n) / 2;
+                }
+             }
+         }
+    });
+   
+</script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <!-- v-if -->
+    <!-- v-else -->
+    <!-- v-else-if -->
+<head>
+    <meta charset="utf-8">
+    <title>Vue Directives3</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="account">
+        잔고 : <input type="text" v-model="balance" />
+        <br>
+        회원님의 등급 : 
+        <span v-if="balance >= 100000">Gold</span>
+        <span v-else-if="balance >= 50000">Silver</span>
+        <span v-else-if="balance >= 20000">Bronze</span>
+        <span v-else>Basic</span>
+    </div>
+
+    
+
+    <script type="text/javascript">
+        var simple1 = new Vue ({
+            el : '#account'
+            , data : {balance : 0}
+        });
+
+    </script>
+</body>
+
+</html>

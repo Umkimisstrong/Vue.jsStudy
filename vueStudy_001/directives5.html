@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <!-- v-for -->
+
+<style>
+    #list {width: 400px; border:1px solid black; border-collapse: collapse;}
+    #list td, #list th {border:1px solid black; text-align:center;}
+    #list > thead > tr {color:yellow; background-color: purple;}
+</style>    
+<head>
+    <meta charset="utf-8">
+    <title>Vue Directives4</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <select name="regions" id="regions">
+            <option disabled="disabled" selected>지역을 선택하세요</option>
+            <option v-for="(val, key, index) in regions" v-bind:value="key">{{val}} {{index}}</option>
+        </select>
+        <!-- index 는 기본 속성이며 객체에 정의되어 있지 않아도, 배열이나 key, value 로 선언된 형식의 객체라면 v-for 내부에서 접근하여 사용이 가능하다 -->
+
+        
+        <!-- <table id="list">
+            <thead>
+                <tr>
+                    <th>
+                        번호
+                    </th>
+                    <th>
+                        이름
+                    </th>
+                    <th>
+                        전화번호
+                    </th>
+                    <th>
+                        주소
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="contact in contacts">
+                    <td>{{contact.no}}</td>
+                    <td>{{contact.name}}</td>
+                    <td>{{contact.tel}}</td>
+                    <td>{{contact.address}}</td>
+                </tr>
+            </tbody>
+        </table> -->
+
+    </div>
+
+    
+
+
+
+
+<script type="text/javascript">
+
+    //debugger;
+    // var model =
+    // {
+    //     "pageno" : 1,
+    //     "pagesize" : 10,
+    //     "totalcount": 100,
+    //     "contacts" : 
+    //     [
+    //           { "no" : 100, "name" : "설현", "tel":"010-3456-8299", "address": "서울"}
+    //         , { "no" : 99, "name" : "수지", "tel":"010-2133-6445", "address": "대전"}
+    //         , { "no" : 98, "name" : "혜리", "tel":"010-2355-5532", "address": "대구"}
+    //         , { "no" : 97, "name" : "하니", "tel":"010-7885-3245", "address": "부산"}
+    //         , { "no" : 96, "name" : "성소", "tel":"010-6634-2352", "address": "울산"}
+    //         , { "no" : 95, "name" : "다현", "tel":"010-7789-9823", "address": "인천"}
+    //     ]
+    // };
+
+    // var list = new Vue
+    // ({
+    //     el : "#example"
+    //     , data : model
+    // });
+
+    var regions = 
+    {
+        "A" : "Asia",
+        "B" : "America",
+        "C" : "Europe",
+        "D" : "Africa",
+        "E" : "Oceania"
+    }; 
+
+    var list = new Vue
+    ({
+        el:"#example",
+        data:{regions:regions}
+    });
+</script>
+</body>
+
+</html>

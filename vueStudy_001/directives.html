@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue Directives</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="simple1">
+        <div> 좋아하는 과일을 모두 골라주세요 : </div>
+        <input type="checkbox" v-model="fruits" value="1"> 사과,
+        <input type="checkbox" v-model="fruits" value="2"> 키위,
+        <input type="checkbox" v-model="fruits" value="3"> 포도,
+        <input type="checkbox" v-model="fruits" value="4"> 수박,
+        <input type="checkbox" v-model="fruits" value="5"> 참외
+    </div>
+
+    <div id="simple2">
+            선택한 과일들 : <span v-html="fruits"></span>
+    </div>
+
+    <script type="text/javascript">
+        var model = {fruits : []};
+
+        var simple1 = new Vue ({
+            el : '#simple1'
+            , data : model
+        });
+
+        var simple2 = new Vue ({
+            el : '#simple2'
+            , data : model
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>
