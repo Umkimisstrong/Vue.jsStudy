@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Vue 의 이벤트 처리 -->
+<!--
+     이벤트객체를 활용한 preventDefault() 메소드 
+ -->
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue Event Control</title>
+<style>
+    html, body { margin: 0; padding:0;}
+    #example 
+    {
+        height: 98vh;
+        min-height: 100%;
+        padding: 5px;
+    }
+</style>
+
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+
+<body>
+    
+<div id="example" v-on:contextmenu="ctxStop">
+    <a href="https://facebook.com" @click="confirmFB">페이스북</a>
+</div>    
+
+<script type="text/javascript">
+    var vm = new Vue
+    ({
+        el : "#example"
+        , methods:
+        {
+            ctxStop : function (e)
+            {
+               e.preventDefault();
+            }   
+            , confirmFB : function(e)
+            {
+                if(!confirm("페이스북으로 이동할까요?"))
+                {
+                    e.preventDefault();
+                } 
+            } 
+        }
+    });
+</script>
+</body>
+
+
+
+
+
+</html>

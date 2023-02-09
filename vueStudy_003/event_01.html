@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Vue 의 이벤트 관련 v-on 디렉티브 활용 : 『click』 -->
+<!--
+     v-on:click 속성을 활용하여 Vue 인스턴스 내에서 선언된 변수와 javascript 연산을 수행할 수 있다.
+     click 속성의 인라인 문자열에 연산을 직접 해도 되고,
+     Vue 인스턴스에서 methods 속성을 활용하여 함수를 선언하여 가져와도 된다.
+ -->
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue Event Control</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+    .layout1 {margin : 30px 30px 30px 30px;}
+</style>
+
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+
+<body>
+    
+<div id="example" class="container layout1">
+    <p>
+        <input type="text" v-model="amount" class="form-control">
+    </p>
+    <p>
+        <button id="deposit" v-on:click="balance += parseInt(amount)"
+                class="btn btn-primary"> 예금
+        </button>
+
+        <button id="withdraw" v-on:click="balance -= parseInt(amount)"
+                class="btn btn-primary"> 인출
+        </button>
+    </p>
+    <h3>계좌 잔고 : {{balance}}</h3>
+</div>    
+
+<script type="text/javascript">
+    var vm = new Vue
+    (
+        {
+            el : "#example"
+            , data : 
+            {
+                amount : 0
+                , balance : 0
+            }
+        }
+    )
+</script>
+</body>
+
+
+
+
+
+</html>
