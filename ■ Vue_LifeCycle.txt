@@ -46,8 +46,8 @@
 
 								   ↓
 		
-				              beforeDestroyed - ●destroyed 상태●											      
-									
+				              beforeDestroyed - ●destroyed 상태●	
+								
 
 
 
