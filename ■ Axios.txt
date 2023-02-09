@@ -1,0 +1,148 @@
+-- ■ Axios
+
+      1. 개요 
+         - Axios 는 브라우저, Node.js 를 위한 Promise API 를 활용하는 HTTP 비동기 통신 라이브러리 이다.
+	 - 쉽게 말해서 백엔드랑 프론트엔드랑 통신을 쉽게하기 위해 Ajax 와 더불어 사용한다.
+	 - 이미 자바스크립트에는 feth api 가 있지만, 프레임워크에서 Ajax 를 구현할 때는 Axios 를 쓰는 편이다.
+         - 브라우저는 크롬, 파이어폭스, 사파리, 엣지, IE 11 등 최신 버전에서 호환된다.
+
+      2. 특징
+	 - 운영 환경에 따라 브라우저의 XMLHttpRequest 객체 또는 Node.js 의 http api 사용
+	 - Promise(ES6) API 사용
+	 - 요청과 응답 데이터의 변형
+	 - HTTP 요청 취소
+	 - HTTP 요청과 응답을 JSON 형태로 자동 변경
+
+      3. Axios vs Fetch
+	 
+	 [Axios]					[Fetch]
+	 써드파티 라이브러리로 설치가 필요		현대 브라우저에 빌트인이라 설치 필요 없음		
+	 XSRF 보호를 해준다.				별도 보호 없음
+	 data 속성을 사용				body 속성을 사용
+	 data 는 object 를 포함한다.			body 는 문자열 화 되어있다.
+         status 가 200, statusText가 'OK'이면 성공	응답 객체가 ok 속성을 포함하면 성곡
+	 자동으로 JSON데이터 형식으로 변환		.json() 메서드를 사용해야 한다.
+	 요청을 취소할 수 있고 타임아웃을 걸 수 있다.	해당 기능 없음
+	 HTTP 요청을 가로챌 수 있다.			기본적으로 제공하지 않는다.
+	 download 진행에 대해 기본적인 지원을 한다.	지원하지 않는다.
+	 좀더 많은 브라우저에 지원 된다.		Chrome 42+, Firefox 39+, Edge 14+, and Safari 10.1+ 이상에 지원
+ 
+         → 정리 : Axios 는 설치가 필요하지만 기능을 많이 지원해주며, 문법이 간소화된다.
+	           Fetch 는 설치가 필요없지만 사용하기에 조금 까다로울 수 있다.
+	           간단하게 사용할 때는 Fetch 를 확장성을 염두했을 때는 Axios 를 사용하자
+
+      4. Axios 설치
+	 - 서버에서 Axios 를 설치하는 방법은 명령창(cmd) 에서 npm install axios 구문을 입력하는 것이다.
+	 - 클라이언트(html)에서 axios 를 설치하는 방법은 script cdn 으로 입력하는 것이다. (택1)
+	   ① <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	   ② <script src="https://unpkg.com/axios/dist/axios.min.js></script>
+
+      5. Axios 문법 구성
+	 - 기본 문법
+	   axios
+	   ({
+	        url : 'https://test/api/cafe/list/today', // 통신할 url
+	        method : 'get', 			  // 요청 방식
+	        data : 
+	        {
+		    foo : 'diary'
+		}
+	   });
+
+         - 옵션
+	   ① method : 요청방식.(get 이 default)
+	   ② url : 요청 주소
+	   ③ baseURL : url 을 상대경로로 쓸 때 url 맨 앞에 붙는 주소
+			ex) url     : '/post' 이고
+			    baseURL : 'https://domail.com/api/' 이면
+		            https://domain.com/api/post 로 요청 가게 된다.
+           ④ headers : 요청 헤더
+	   ⑤ data : 요청 방식이 'PUT', 'POST', 'PATCH' 해당하는 경우 body 에 보내는 데이터
+	   ⑥ params : URL 파라미터 ( ?key = value 로 요청하는 url get 방식을 객체로 표현한 것)
+	   ⑦ timeout : 요청 timeout 이 발동되기 전 milliseconds의 시간을 요청.
+                        timeout 보다 요청이 길어진다면, 요청은 취소되게 된다.
+           ⑧ responseType : 서버가 응답해주는 데이터의 타입 지정
+                             (arraybuffer, document, json, text, stream, blob)
+           ⑨ responseEncoding : 디코딩 응답에 사용하기 위한 인코딩(utf-8)
+	   ⑩ transformRequest : 서버에 전달되기 전에 요청 데이터를 바꿀 수 있다.
+	                         PUT / POST / PATCH / DELETE 에 해당하는 경우에 가능
+				 배열의 마지막 함수는 string 또는 Buffer, 또는 ArrayBuffer 를 반환
+				 header 객체를 수정 가능
+	   ⑪ transformResponse : 응답 데이터가 만들어지기 전에 변환 가능
+	   ⑫ withCredentials : cross-site access-control 요청 허용 유무, true 로 설정할 시 cross-origin
+				으로 쿠키 값을 전달할 수 있다.
+	   [기타]
+	   auth
+	   maxContentLength
+	   validateStatus
+	   maxRedirects
+	   httpAgent
+	   proxy
+	   cancelToken   
+
+         - 응답 데이터(response)
+	   Axios 를 통해 요청을 서버에 보내면, 서버에서 처리하고 다시 클라이언트에 객체로 응답하게 된다.
+	   그 객체는 .then() 함수로 얻어낼 수 있고, 포함된 정보는 다음과 같다.
+	   ① response.data
+	   ② response.status
+	   ③ response.statusText
+	   ④ response.headers
+	   ⑤ response.config
+
+         - 요청 이후 처리 함수
+	   ① .then()
+	      - 요청 성공 시 실행하는 함수, response 객체를 반환받아 작업을 수행한다.
+	   ② .catch()
+	      - 에러 발생 시 실행하는 함수, error 객체를 반환받아 작업을 수행한다.
+	   ③ .finally()
+	      - 마지막에 필수적으로 항상 실행하는 함수
+
+         - Axios 전역 설정
+	   axios.defaults.baseURL = 'https://api.example.com';
+	   axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+	   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+           // Instance를 만들 때 설정의 default 값을 설정할 수 있다.
+	   const instance = axios.create
+	   ({
+	       baseURL: 'https://api.example.com'
+	   });
+ 
+	   // Instance를 만든 후  defalut 값을 수정할 수 있다. 
+	   instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+	   instance.defaults.timeout = 2500;
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

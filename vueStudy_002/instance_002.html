@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue Instance에 관하여(계속)</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>    
+<body>
+
+    <div id="example">
+        금액 : <span>{{amount}} 원</span>
+    </div>
+
+<script type="text/javascript">
+    // Vue 객체에 computed 속성을 통해서 amount 를 정의
+    // getter, setter 구성
+    // setter 는 vm.amount 를 정의할 때 사용
+    // getter 는 정의된 vm.amount 를 추출할 때 사용
+     var vm = new Vue
+     ({
+        el:"#example"
+        , data :
+        {
+            amt : 1234567
+        }
+        , computed :
+        {
+            amount : {
+            get: function ()
+            {
+                var s = new String("" + this.amt);
+                var result = "";
+                var num = 0;
+                for (var i = s.length-1; i>=0; i--)
+                {
+                    result = s[i] + result;
+                    if (num % 3 == 2 && i !==0)
+                    {
+                        result = "," + result;
+                    }
+
+                    num++;
+                }
+                return result;
+            }
+            ,
+            set : function (amt)
+            {
+                if(typeof(amt) == "string")
+                {
+                    var result = parseInt(amt.replace(/,/g, ""));
+                    if(isNaN(result))
+                        this.amt = 0;
+                    else
+                        this.amt = result;
+                }
+                else if(typeof(amt) == "number")
+                    this.amt = amt;
+            }
+        }
+        }
+     });
+</script>
+</body>
+</html>
