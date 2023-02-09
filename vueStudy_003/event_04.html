@@ -5,6 +5,17 @@
 <!-- Vue 의 이벤트 처리 -->
 <!--
      이벤트 전파와 버블링
+     
+     HTML 문서의 이벤트 처리는 3단계를 거칩니다.
+
+     1단계는 문서 내의 요소에서 이벤트가 발생했을 때 HTML 문서의 밖에서부터 이벤트를 발생시킨
+     HTML 요소까지 포착해 들어가는 이벤트 포착 단계입니다.
+
+     2단계는 이벤트를 발생시킨 요소에 다다르면 요소의 이벤트에 연결된 함수를 직접 호출시키는
+     이벤트 발생 단계입니다.
+
+     3단계는 이벤트가 발생한 요소로부터 상위 요소로 거슬러 올라가면서 동일한 이벤트를 호출시키는
+     버블링 단계입니다.
  -->
 
 
@@ -12,13 +23,26 @@
     <meta charset="utf-8">
     <title>Vue Event Control</title>
 <style>
-    html, body { margin: 0; padding:0;}
-    #example 
-    {
-        height: 98vh;
-        min-height: 100%;
-        padding: 5px;
-    }
+   #outer 
+   {
+        width: 200px;
+        height: 200px;
+        border: solid 2px black;
+        background-color: aqua;
+        position : absolute; 
+        top: 100px;
+        left : 50px;
+        padding: 10px 10px 10px 10px;        
+   }
+
+   #inner
+   {
+        width: 100px;
+        height: 100px;
+        border: solid 2px black;
+        background-color: yellow;
+   }
+
 </style>
 
 <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
@@ -27,28 +51,42 @@
 
 <body>
     
-<div id="example" v-on:contextmenu="ctxStop">
-    <a href="https://facebook.com" @click="confirmFB">페이스북</a>
+<div id="example"> 
+    <div id="outer" @click="outerClick">
+    <!-- <div id="outer" @click.stop="outerClick"> -->
+    <!-- <div id="outer" @click.capture.stop="outerClick"> -->
+        <div id="inner" @click="innerClick"></div>
+    </div>
 </div>    
 
 <script type="text/javascript">
     var vm = new Vue
     ({
-        el : "#example"
+        el:"#example"
         , methods:
         {
-            ctxStop : function (e)
+            outerClick : function (e) 
             {
-               e.preventDefault();
+                console.log("### OUTER CLICK");
+                console.log("Event Phase : ", e.eventPhase);
+                console.log("Current Target : ", e.currentTarget);
+                console.log("Target", e.target);
+
+                // 원본 이벤트를 제외한 이벤트 전파를 막기 위한 코드
+                e.stopPropagation();
+                
+            },
+            innerClick :function(e)
+            {
+                console.log("### INNER CLICK");
+                console.log("Event Phase : ", e.eventPhase);
+                console.log("Current Target : ", e.currentTarget);
+                console.log("Target", e.target);
+
+                // 원본 이벤트를 제외한 이벤트 전파를 막기 위한 코드
+                e.stopPropagation();
             }   
-            , confirmFB : function(e)
-            {
-                if(!confirm("페이스북으로 이동할까요?"))
-                {
-                    e.preventDefault();
-                } 
-            } 
-        }
+        },
     });
 </script>
 </body>
