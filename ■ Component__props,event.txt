@@ -1,0 +1,32 @@
+-- ■ Component의 props 와 event
+
+-- 1. 개요 
+      - 부모 컴포넌트와 자식 컴포넌트 사이에서 상호작용하는 요소들
+      - 부모 컴포넌트는 속성(props)을 자식 컴포넌트에 전달할 수 있다.
+      - 자식 컴포넌트는 이벤트(event)를 부모 컴포넌트에 전달할 수 있다.
+      - 정보 전달은 단방향으로만 가능하며 발신(emit) 과 v-on 디렉티브를 이용한다.
+
+-- 2. props 를 이용한 정보 전달
+      - Vue 컴포넌트를 정의할 때 props 옵션을 작성하고 props 명을 배열로 나열한다.
+      - Vue.component
+        ( 
+            'list-component'
+           , {
+                 template : '#listTemplate'
+                  , props : ['tagmessage']
+             }
+        )
+ 
+      - <list-component tagmessage="Hello"></list-component>
+                         └> tagmessage 속성 사용
+
+      - ★ 주의사항 : component 에서 정의한 props 옵션은
+	              props 명을 카멜 표기법 (myMessage) 으로 정의했다면
+                      props 를 사용할 때 태그명을 케밥 표기법 (my-Message)으로 사용해야 한다. 
+	            : 다른 속성이나 {{값}} 에 대해서 명칭이 같다면(대소문자 구분 없이) 정보 전달이 제대로 돼지 않는다.
+                
+	                       ▼
+
+      - <list-component tag-message="Hello"></list-component>
+                         └> tag-message 속성 명칭 변경하여 사용(케밥 표시법)
+      

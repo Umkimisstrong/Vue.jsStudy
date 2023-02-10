@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Component 실습(계속)</title> 
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>    
+
+<template id="listTemplate">
+    <li>
+        <!-- {{message}} -->
+        {{message}}
+    </li>
+</template>
+<script type="text/javascript">
+    // Vue.component 가 먼저 선언되어야 한다.
+    Vue.component
+    (
+        'list-component'
+        , 
+        {
+            template : '#listTemplate'
+            //, props : ['message']   // props 속성 : component 를 사용하는 곳에서 전달받아서 사용할 수 있다. 
+                                    // 주의사항   : component 를 정의하면서 props 에 카멜 표기법으로 사용했다면 (ex. myMessage)
+                                    //              속성 사용 시 명칭을 케밥 표기법으로 할 것                   (ex. my-Message)
+            //, props : ['message']                                    
+            , props  :
+            {
+                message : {type:String, default:'안녕하세요'}
+                , count : {type:Number, required : true}
+            }
+        }
+    )
+
+    /*
+        Prop "mymessage" is passed to component <Anonymous>
+            , but the declared prop name is "myMessage"
+            . Note that HTML attributes are case-insensitive
+              and camelCased props need to use their kebab-case
+               equivalents when using in-DOM templates.
+               You should probably use "my-message" instead of "myMessage"  ▶ 확인
+    */
+</script>
+
+<body>
+    <!-- 
+        component 에서의 props 옵션
+    -->
+    <div id="app">
+        <ul>
+            <list-component message="Hello" v-bind:count="100"></list-component>
+            <list-component message="씬짜오" :count="21"></list-component>
+            <list-component message="니하오마" :count="0" ></list-component>
+            <list-component :count="1000" ></list-component>
+        </ul>
+    </div>
+
+<script type="text/javascript">
+    
+    Vue.config.devtools = true;
+
+    var v= new Vue
+    ({
+        el : '#app'
+    });
+    
+</script>    
+</body>
+</html>

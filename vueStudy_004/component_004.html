@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Component 실습(계속)</title> 
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>    
+<template id="timeTemplate">
+    <div>
+        <span>{{nowTS}}</span>
+        <button v-on:click="timeClick">현재 시간</button>
+    </div> 
+</template>
+<script type="text/javascript">
+    // Vue.component 가 먼저 선언되어야 한다.
+    //var data = {nowTS : 0}
+
+    Vue.component
+    (
+        'time-component'
+        ,
+        {
+            template : '#timeTemplate'
+            // , data : { nowTS : 0}    ▶ 오류가 나기 때문에 data 옵션을 함수로 사용 한다.
+            // , data :  function () 
+            //{
+            //     return data;           // 2개의 동일한 Template 에 data 객체값이 하나에서 변경되면 동시에 반영된다.
+            //}
+            , data : function () 
+            {
+                return { nowTS : 0 }
+            }  
+            , methods : 
+            {
+                timeClick : function (e)
+                {
+                    this.nowTS = (new Date()).getTime();
+                }
+            }
+        }
+    );
+</script>
+
+<body>
+    <!-- 
+        component 에서의 data 옵션
+        오류 : The "data" option should be a function that returns a per-instance value in component definitions.
+        - 정상적으로 렌더링 되려면 data 옵션에 함수가 주어져야 합니다.
+        
+    -->
+    <div id="app">
+        <time-component></time-component>
+        <time-component></time-component>
+    </div>
+
+<script type="text/javascript">
+    
+    Vue.config.devtools = true;
+
+    var v= new Vue
+    ({
+        el : '#app'
+    });
+    
+</script>    
+</body>
+</html>

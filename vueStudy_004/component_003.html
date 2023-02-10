@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Component 실습(계속)</title> 
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>    
+<script type="text/javascript">
+    // Vue.component 가 먼저 선언되어야 한다.
+     Vue.component('option-component'
+     , {template : '<option>hello</option>'});
+</script>
+
+<!-- select box 자체를 component 화 하여 template 으로 만듦 -->
+<script type="text/x-template" id="selectTemplate">
+    <select>
+        <option-component></option-component>
+        <option-component></option-component>
+        <option-component></option-component>
+    </select>
+</script>
+
+
+<body>
+
+    <!--
+         select 태그 하위의 option 속성들은 component 로 명시해도 렌더링 되지 않는다.
+         DOM 요소가 올바르지 않다고 판단하기 때문에, 제대로 렌더링하지 못하는 문제가 발생
+
+         이 문제를 해결하기 위해서 is 특성(Attribute)을 이용
+         또는 component 를 select를 포함하여 template 화 한다.
+
+         ※ 주의사항 : 템플릿 문자열 안에서 루트 요소(Root Element) 는 하나여야 한다.
+            <template>
+                <div> abc    </div>
+                <div> abc    </div>
+            </template>
+            → 불가
+
+            <template>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </template>
+            → 가능
+     -->
+    <div id="app">
+        <!-- <select name="" id=""> -->
+            <!--
+                <option-component></option-component>
+                <option-component></option-component>
+             -->
+
+             <!-- 
+                <option is="option-component"></option>
+                <option is="option-component"></option> 
+             -->
+        <!-- </select> -->
+
+        <select-component></select-component>
+    </div>
+
+<script type="text/javascript">
+    
+    Vue.component('select-component', { template : '#selectTemplate'});
+    Vue.config.devtools = true;
+
+    var v = new Vue
+    ({
+       el : "#app" 
+    });
+
+    
+    
+</script>    
+</body>
+</html>
