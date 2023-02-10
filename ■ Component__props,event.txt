@@ -29,4 +29,10 @@
 
       - <list-component tag-message="Hello"></list-component>
                          └> tag-message 속성 명칭 변경하여 사용(케밥 표시법)
+
+      - props 속성을 전달할 때 속성명 뿐만 아니라 type, default, 등 속성을 정의해서 전달할 수 있다.
+        이 때 객체나 배열을 전달하려는 경우, default를 정의할 때는 함수로 리턴하는 구조로 작성해야 한다.
+
+-- 3. event 를 이용한 정보 전달
+      - 자식 컴포넌트에서 이벤트를 발신(emit) 하고 부모 컴포넌트에서 v-on 디렉티브를 이용해 이벤트를 수신
       

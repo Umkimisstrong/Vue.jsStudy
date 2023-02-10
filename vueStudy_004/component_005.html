@@ -28,6 +28,14 @@
             {
                 message : {type:String, default:'안녕하세요'}
                 , count : {type:Number, required : true}
+                , countries :
+                {
+                    type : Array
+                    , default : function()
+                    {
+                        return ['대한민국'];
+                    }
+                }
             }
         }
     )
@@ -45,12 +53,20 @@
 <body>
     <!-- 
         component 에서의 props 옵션
+
+        정의 시 : 속성명과 타입을 지정 가능
+                : 속성명을 카멜표기법으로 정의한 경우 
+                : 객체나 배열을 전달하려는 경우
+
+        사용 시 : 속성명을 타입에 맞게 꺼내려면 v-bind 속성을 이용
+                : 속성명을 케밥표기법으로 사용
+                : default 값은 함수를 통해 정의해야만 한다.
     -->
     <div id="app">
         <ul>
-            <list-component message="Hello" v-bind:count="100"></list-component>
-            <list-component message="씬짜오" :count="21"></list-component>
-            <list-component message="니하오마" :count="0" ></list-component>
+            <list-component message="Hello" v-bind:count="100" v-bind:countries="['미국', '영국', '호주']"></list-component>
+            <list-component message="씬짜오" :count="21" :countries="['베트남']"></list-component>
+            <list-component message="니하오마" :count="0" :countries="['중국', '타이완']"></list-component>
             <list-component :count="1000" ></list-component>
         </ul>
     </div>
