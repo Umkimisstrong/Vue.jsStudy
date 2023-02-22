@@ -4,8 +4,8 @@
         <ul>
             <li v-for="todoItem in todoItems" v-bind:key="todoItem" class="shadow">
                 {{todoItem}}
-                <span class="">
-                    <i class="fa-solid fa-trash-can"></i>
+                <span class="removeBtn">
+                   <i class="fa-solid fa-user"></i>
                 </span>
             </li>
         </ul>
@@ -29,10 +29,7 @@ export default {
                 if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
                     this.todoItems.push(localStorage.key(i));
                 }
-
                 //console.log(localStorage.key(i));
-                
-
             }
         }
     }
