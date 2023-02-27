@@ -1,18 +1,19 @@
 <template>
     <!-- TodoList -->
     <div>
-        <ul>
-            <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
-                <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">Done</span>
-                <!--
-                     v-bind 의 강력한 기능
-                     bind 속성을 통해 todoItem.completed   (true / false) 에 따라 클래스를 동적으로 구현
-                 -->
-                <span v-bind:class="{textCompleted: todoItem.completed}"> {{todoItem.item}} </span>
+            <transition-group name="list" tag="ul">
+                <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+                    <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">Done</span>
+                    <!--
+                        v-bind 의 강력한 기능
+                        bind 속성을 통해 todoItem.completed   (true / false) 에 따라 클래스를 동적으로 구현
+                    -->
+                    <span v-bind:class="{textCompleted: todoItem.completed}"> {{todoItem.item}} </span>
 
-                <button class="removeBtn" v-on:click="removeTodo(todoItem.item, index)">Remove</button>
-            </li>
-        </ul>
+                    <button class="removeBtn" v-on:click="removeTodo(todoItem.item, index)">Remove</button>
+                </li>
+            </transition-group>
+            
     </div>
 </template>
 
@@ -63,4 +64,22 @@ li{
     margin-left : auto;
     color: #de4343;
 }
+
+
+/* 
+    리스트 아이템 트랜지션 효과
+*/
+
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 </style>

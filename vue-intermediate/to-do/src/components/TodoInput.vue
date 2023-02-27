@@ -6,22 +6,20 @@
             <button class="addBtn">add</button>
         </span>
 
-          <Modal v-if="showModal" @close="showModal = false">
+          <Modal v-if="showModal" @close="showModal = false" v-on:closeModal="closeModal">
             <!--
              you can use custom content here to overwrite
              default content
             -->
             <h3 slot="header">
                 경고!
+                <hr>
             </h3>
+            
         <!-- <h3 slot="header">custom header</h3> -->
 
             <h3 slot="body">
                 내용을 입력하세요    
-            </h3>
-
-            <h3 slot="footer">
-                copyright 2022
             </h3>
       </Modal>
     </div>
@@ -59,6 +57,10 @@ export default {
         clearInput : function () {
             this.newTodoItem = '';
         }
+        , closeModal : function(){
+            this.showModal = !this.showModal;
+        }
+
    },
    // 모달 컴포넌트 등록
     components : {

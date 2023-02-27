@@ -23,8 +23,10 @@
               <!-- footer -->
               <div class="modal-footer">
                 <slot name="footer">
-                  default footer
-                  <button class="modal-default-button" @click="$emit('close')">
+                  <!-- <button class="modal-default-button" @click="$emit('close')">
+                    OK
+                  </button> -->
+                  <button class="modal-default-button" @click="$emit('closeModal')">
                     OK
                   </button>
                 </slot>
@@ -101,6 +103,7 @@
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 
 </style>
 
