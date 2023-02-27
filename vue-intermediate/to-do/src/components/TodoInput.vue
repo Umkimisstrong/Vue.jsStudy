@@ -6,15 +6,35 @@
             <button class="addBtn">add</button>
         </span>
 
+          <Modal v-if="showModal" @close="showModal = false">
+            <!--
+             you can use custom content here to overwrite
+             default content
+            -->
+            <h3 slot="header">
+                경고!
+            </h3>
+        <!-- <h3 slot="header">custom header</h3> -->
 
+            <h3 slot="body">
+                내용을 입력하세요    
+            </h3>
+
+            <h3 slot="footer">
+                copyright 2022
+            </h3>
+      </Modal>
     </div>
 </template>
 
 <script>
+import Modal from './common/CommonModal.vue'
+
 export default {
     data : function ()  {
         return  {
             newTodoItem: ""
+            , showModal:false
         }
     },
     methods: {
@@ -23,13 +43,28 @@ export default {
             //console.log(this.newTodoItem);
             // 저장하는 로직
             // 개발자도구의 애플리케이션 - 로컬스토리지에 key / value 로 저장이 된다.
-             localStorage.setItem(this.newTodoItem, this.newTodoItem);
-            this.clearInput();
+
+            if(this.newTodoItem !== '')
+            {
+                // 상위 컴포넌트로 addTodoItem 이라는 이벤트 발생시킨다.
+                this.$emit('addTodoItem', this.newTodoItem);
+                this.clearInput();
+            } // 값이 안담기면 모달을 띄운다
+            else
+            {
+                this.showModal = !this.showModal;
+            }
+            
         },
         clearInput : function () {
             this.newTodoItem = '';
         }
    },
+   // 모달 컴포넌트 등록
+    components : {
+        Modal:Modal
+    }
+
 }
 
 </script>

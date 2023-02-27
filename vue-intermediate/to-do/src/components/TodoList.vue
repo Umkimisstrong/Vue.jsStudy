@@ -2,11 +2,15 @@
     <!-- TodoList -->
     <div>
         <ul>
-            <li v-for="todoItem in todoItems" v-bind:key="todoItem" class="shadow">
-                {{todoItem}}
-                <span class="removeBtn">
-                   <i class="fa-solid fa-user"></i>
-                </span>
+            <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
+                <span class="checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">Done</span>
+                <!--
+                     v-bind 의 강력한 기능
+                     bind 속성을 통해 todoItem.completed   (true / false) 에 따라 클래스를 동적으로 구현
+                 -->
+                <span v-bind:class="{textCompleted: todoItem.completed}"> {{todoItem.item}} </span>
+
+                <button class="removeBtn" v-on:click="removeTodo(todoItem.item, index)">Remove</button>
             </li>
         </ul>
     </div>
@@ -14,27 +18,16 @@
 
 <script>
 export default {
-    data : function () {
-        return {
-            todoItems:[]
+    props: ['propsdata'],
+    methods:{
+        removeTodo:function(todoItem, index){
+            this.$emit('removeItem', todoItem, index)
         }
-    },
-    created : function () {
-        //console.log('created');
-
-        if(localStorage.length > 0) {
-
-            for(var i = 0; i < localStorage.length; i++) {
-
-                if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                    this.todoItems.push(localStorage.key(i));
-                }
-                //console.log(localStorage.key(i));
-            }
+        , toggleComplete : function (todoItem, index) {
+            this.$emit('toggleComplete', todoItem, index);
         }
     }
 }
-
 </script>
 
 <style scoped>
