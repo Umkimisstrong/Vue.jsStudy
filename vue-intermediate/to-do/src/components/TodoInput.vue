@@ -29,7 +29,8 @@
 import Modal from './common/CommonModal.vue'
 
 export default {
-    data : function ()  {
+    //data : function ()  {
+    data ()  {
         return  {
             newTodoItem: ""
             , showModal:false
@@ -37,7 +38,7 @@ export default {
     },
     methods: {
 
-        addTodo : function (){
+        addTodo(){
             //console.log(this.newTodoItem);
             // 저장하는 로직
             // 개발자도구의 애플리케이션 - 로컬스토리지에 key / value 로 저장이 된다.
@@ -54,10 +55,10 @@ export default {
             }
             
         },
-        clearInput : function () {
+        clearInput() {
             this.newTodoItem = '';
         }
-        , closeModal : function(){
+        , closeModal(){
             this.showModal = !this.showModal;
         }
 
